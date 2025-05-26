@@ -4,7 +4,7 @@ import { User } from "@/models/User";
 import { uploadImageToGridFS, deleteImageFromGridFS } from "@/lib/gridfs";
 
 // GET user by ID
-export async function GET(request: Request, { params }: { params: { user_id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ user_id: string }> }) {
   try {
     await connectMongoDB();
     const { user_id: _id } = await params;
@@ -59,7 +59,7 @@ export async function GET(request: Request, { params }: { params: { user_id: str
 }
 
 // PUT route to update user data
-export async function PUT(request: Request, { params }: { params: { user_id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ user_id: string }> }) {
   try {
     await connectMongoDB();
     const { user_id: _id } = await params;

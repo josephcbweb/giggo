@@ -5,11 +5,11 @@ import { connectMongoDB } from "@/lib/mongodb";
 
 export async function GET(
   request: Request,
-  { params }: { params: { imageId: string } }
+  { params }: { params: Promise<{ imageId: string }> }
 ) {
   try {
     await connectMongoDB();
-    const { imageId } = params;
+    const { imageId } =await params;
 
     // Get raw image buffer from GridFS
     const imageBuffer = await getImageFromGridFS(imageId);
