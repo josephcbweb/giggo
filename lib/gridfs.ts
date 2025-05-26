@@ -6,6 +6,9 @@ let gridFSBucket: GridFSBucket;
 export const initGridFS = () => {
   try {
     const conn = mongoose.connection;
+    if (!conn.db) {
+      throw new Error("Mongoose connection database is not initialized.");
+    }
     gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
       bucketName: "user_images",
     });
