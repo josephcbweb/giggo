@@ -2,7 +2,6 @@
 import { NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/mongodb";
 import { Review } from "@/models/Review";
-import { Employer } from "@/models/Employer";
 import { auth } from "@/auth";
 import { User } from "@/models/User";
 export async function POST(request: Request) {
@@ -85,7 +84,7 @@ export async function POST(request: Request) {
         { 
           success: false,
           error: "Failed to submit review",
-          details: error.message 
+          details: error instanceof Error ? error.message : String(error)
         },
         { status: 500 }
       );

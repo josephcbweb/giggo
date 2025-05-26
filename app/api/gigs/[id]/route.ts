@@ -150,7 +150,7 @@ export async function PUT(
     return NextResponse.json(
       { 
         error: "Failed to update gig",
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' && error instanceof Error ? error.message : undefined
       },
       { status: 500 }
     );

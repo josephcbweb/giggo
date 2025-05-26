@@ -13,7 +13,7 @@ export default async function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
-      <div className="w-full max-w-4xl">
+      <div className="lg:w-full max-w-4xl w-2xl">
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
           <div className="flex flex-col md:flex-row">
             {/* Left side - Image section */}
@@ -29,7 +29,7 @@ export default async function Login() {
               </div>
             </div>
 
-            <div className="w-full lg:w-1/2 p-8 md:p-12">
+            <div className="w-full lg:w-1/2 p-8 md:p-12 ">
               <div className="max-w-sm mx-auto">
                 <Link
                   href="/"
@@ -85,8 +85,9 @@ export default async function Login() {
             </div>
           </div>
         </div>
-
-        <SignUpFooter />
+        <div className="mt-8">
+          <SignUpFooter />
+        </div>
       </div>
     </div>
   );

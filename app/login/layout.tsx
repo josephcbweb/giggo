@@ -1,4 +1,3 @@
-import { title } from "process";
 import React, { Suspense } from "react";
 import Loading from "./loading";
 

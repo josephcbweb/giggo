@@ -28,6 +28,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { FaRupeeSign } from "react-icons/fa";
+import { Session } from "next-auth";
 
 interface Job {
   _id: string;
