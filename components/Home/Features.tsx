@@ -2,10 +2,20 @@
 import React, { useState } from "react";
 import { Briefcase, Clock, DollarSign, BarChart2, Users } from "lucide-react";
 
-const Features = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+type FeatureColor = "indigo" | "teal" | "amber" | "blue" | "purple";
 
-  const features = [
+interface Feature {
+  icon: React.ReactNode;
+  color: FeatureColor;
+  title: string;
+  description: string;
+  stats: string;
+}
+
+const Features = () => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  const features: Feature[] = [
     {
       icon: <Briefcase className="h-10 w-10" />,
       color: "indigo",
@@ -49,7 +59,7 @@ const Features = () => {
   ];
 
   // Color mapping for tailwind classes
-  const colorMap = {
+  const colorMap: Record<FeatureColor, string> = {
     indigo: "from-indigo-500 to-indigo-600 text-indigo-600 border-indigo-200",
     teal: "from-teal-500 to-teal-600 text-teal-600 border-teal-200",
     amber: "from-amber-500 to-amber-600 text-amber-600 border-amber-200",
