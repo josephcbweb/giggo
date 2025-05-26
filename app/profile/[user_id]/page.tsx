@@ -3,7 +3,7 @@ import ProfilePage from "@/components/Profile/ProfilePage";
 import { redirect } from "next/navigation";
 import React from "react";
 
-const page = async ({ params }: { params: { user_id: string } }) => {
+const page = async ({ params }: { params: Promise<{ user_id: string }> }) => {
   const data = await params;
   const user = data.user_id;
   const session = await auth();

@@ -6,7 +6,7 @@ import React from "react";
 const page = async ({
   searchParams,
 }: {
-  searchParams: { user_id?: string };
+  searchParams: Promise<{ user_id?: string }>;
 }) => {
   const { user_id } = await searchParams;
   const session = await auth();
@@ -16,7 +16,10 @@ const page = async ({
 
   return (
     <div>
-      <ProfileLanding user_id={user_id || session.user.id} session={session} />
+      <ProfileLanding
+        user_id={user_id || session?.user?.id}
+        session={session}
+      />
     </div>
   );
 };

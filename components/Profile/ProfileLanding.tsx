@@ -64,7 +64,7 @@ interface Review {
 }
 
 interface ProfilePageProps {
-  user_id: string;
+  user_id: string | undefined;
   session: any;
 }
 
