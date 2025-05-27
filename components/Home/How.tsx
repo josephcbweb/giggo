@@ -429,16 +429,16 @@ const How = () => {
             Join thousands of workers and employers who have already discovered
             the easiest way to connect.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
             <Link href="/signup">
-              <button className="bg-white text-teal-600 py-3 px-8 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center">
+              <button className="w-full md:w-auto bg-white text-teal-600 py-3 px-8 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center">
                 <Calendar className="w-5 h-5 mr-2" />
                 Sign Up Now
               </button>
             </Link>
 
             <Link href="#contact">
-              <button className="bg-transparent border-2 border-white text-white py-3 px-8 rounded-lg font-medium hover:bg-white hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center">
+              <button className="w-full md:w-auto bg-transparent border-2 border-white text-white py-3 px-8 rounded-lg font-medium hover:bg-white hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center">
                 <PhoneCall className="w-5 h-5 mr-2" />
                 Contact Us
               </button>

@@ -1,14 +1,52 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const [charCount, setCharCount] = useState(0);
-
+  const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [countryCode, setCountryCode] = useState("");
+  const [sending, setSending] = useState(false);
+  const [contactButtonText, setContactButtonText] = useState("Submit");
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCharCount(e.target.value.length);
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setSending(true);
+    setContactButtonText("Sending...");
+    e.preventDefault();
+    const formData = {
+      firstName,
+      email,
+      phone,
+      message,
+      countryCode,
+    };
+
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const result = await response.json();
+    if (result.success) {
+      setContactButtonText("Send successfully");
+      setTimeout(() => setContactButtonText("Submit"), 3000);
+      setFirstName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
+      setCountryCode("");
+    }
+    setSending(false);
+  };
   const countryCodes = [
     { value: "+62", label: "Indonesia (+62)" },
     { value: "+91", label: "India (+91)" },
@@ -89,23 +127,29 @@ const Contact = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
             Get in Touch
           </h2>
-          <form className="space-y-4">
-            {/* Input Fields */}
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <input
                 type="text"
                 placeholder="First Name"
                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-300"
+                onChange={(e) => setFirstName(e.target.value)}
+                value={firstName}
               />
               <input
                 type="email"
                 placeholder="Your Email"
                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-300"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
               />
             </div>
 
             <div className="flex flex-col md:flex-row gap-4">
-              <select className="p-3 border rounded-lg md:w-1/3 focus:ring-2 focus:ring-blue-300">
+              <select
+                className="p-3 border rounded-lg md:w-1/3 focus:ring-2 focus:ring-blue-300"
+                onChange={(e) => setCountryCode(e.target.value)}
+              >
                 {countryCodes.map((code) => (
                   <option key={code.value} value={code.value}>
                     {code.label}
@@ -116,6 +160,8 @@ const Contact = () => {
                 type="tel"
                 placeholder="Phone Number"
                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-300"
+                onChange={(e) => setPhone(e.target.value)}
+                value={phone}
               />
             </div>
 
@@ -123,7 +169,11 @@ const Contact = () => {
               <textarea
                 placeholder="How can we help?"
                 maxLength={120}
-                onChange={handleTextareaChange}
+                onChange={(e) => {
+                  handleTextareaChange(e);
+                  setMessage(e.target.value);
+                }}
+                value={message}
                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-300 resize-none"
                 rows={4}
               />
@@ -133,10 +183,20 @@ const Contact = () => {
             </div>
 
             <button
+              disabled={sending}
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors"
+              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center"
             >
-              Submit
+              <motion.span
+                animate={sending ? { x: [-5, 5, -5] } : {}}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                {contactButtonText}
+              </motion.span>
             </button>
           </form>
         </div>

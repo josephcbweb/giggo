@@ -10,7 +10,7 @@ export default async function Home() {
   const session = await auth();
   return (
     <>
-      <div className="">
+      <div className="overflow-x-hidden">
         <HeroFirst username={session?.user?.name || ""} />
         <PlatformAdvantages />
         <How />
